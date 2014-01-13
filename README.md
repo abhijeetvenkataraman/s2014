@@ -8,4 +8,5 @@ files that are needed for the course.
 #### Official
 
 * [Syllabus](https://docs.google.com/document/d/1Ji5yJmDivosXNd1H-AmxnbiP5obHXf0WCqPcq6LCwAg/pub)
-* [Blackboard](blackboard.olivetcollege.edu)
+* [Blackboard](http://blackboard.olivetcollege.edu)
+* [Textbook](http://highered.mcgraw-hill.com/sites/0072467509/)
