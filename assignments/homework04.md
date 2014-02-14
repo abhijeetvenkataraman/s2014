@@ -1,4 +1,4 @@
-## CS 360 Homework 03
+## CS 360 Homework 04
 ----
 
 Assigned: 2014-02-10
