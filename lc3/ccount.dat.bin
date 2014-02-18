@@ -1,0 +1,10 @@
+; file to count occurrences of a character 
+0011 0000 0001 0110 ; start of file memory address - x3016 
+
+; actual file to process, one character per memory location 
+0000 0000 0111 0100 ; x74 t 
+0000 0000 0110 0101 ; x65 e 
+0000 0000 0111 0011 ; x73 s 
+0000 0000 0111 0100 ; x74 t 
+0000 0000 0000 0100 ; x4 - end-of-file symbol 
+

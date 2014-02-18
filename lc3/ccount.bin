@@ -1,0 +1,70 @@
+; Program to count occurrences of a character in a file 
+; 
+; limitations: 
+; - program only works if no more than 9 occurrences are found 
+; 
+; inputs: 
+; - character to be input from the keyboard 
+; 
+; outputs: 
+; - result to be displayed on the monitor 
+; 
+; register usage: 
+; R0 - character to count 
+; R1 - character from the file 
+; R2 - character occurrence counter 
+; R3 - location of the next character to read from file 
+; 
+; memory usage: 
+; x3012 - location of the file ECE 190 Lecture 11 February 22, 2011 8 V. Kindratenko
+; x3013 - stores x30 value used to convert count to an ASCII char for output 
+; - actual file, located starting from the address specified in x3012 
+; - file must end with value x0004 (end-of-text) 
+; 
+
+0011 0000 0000 0000; starting address of the program (x3000) 
+
+; 
+; Initialization 
+
+0101 010 010 1 00000 ; (AND R2, R2, #0) clear character counter 
+0010 011 000010000 ; (LD R3, x10) load starting address of the file 
+1111 0000 00100011 ; (GETC) get a character from the keyboard 
+0110 001 011 000000 ; (LDR R1, R3, #0) load next character from the file 
+
+; 
+; Test character for end-of-file 
+
+0001 100 001 1 11100 ; (ADD R4, R1, #-4) check if this is end of file 
+0000 010 000001000 ; (BRz, x8) if so, skip to the output part 
+
+; 
+; Test character for match 
+
+1001 001 001 111111 ; (NOT R1, R1) otherwise, check if the character 
+0001 001 001 1 00001 ; (ADD R1, R1, #1) from the file is the same as the 
+0001 001 001 0 00 000 ; (ADD R1, R1, R0) character entered from the keyboard 
+0000 101 000000001 ; (BRnp, x1) if not, skip just one line 
+0001 010 010 1 00001 ; (ADD R2, R2, #1) if yes, increment the counter 
+
+; 
+; Read next character from file 
+
+0001 011 011 1 00001 ; (ADD R3, R3, #1) move to the next character in file 
+0110 001 011 000000 ; (LDR R1, R3, #0) read it 
+0000 111 111110110 ; (BRnzp x-A) and repeat the test 
+
+; 
+; Output results and stop 
+
+0010 000 000000100 ; (LD R0, #4) load ASCII offset 
+0001 000 000 0 00 010 ; (ADD R0, R0, R2) prepare counter for output 
+1111 0000 00100001 ; (PUTC) output counter value 
+1111 0000 00100101 ; (HALT) halt the execution of the program 
+
+; 
+; Storage for file address and ASCII offset 
+
+0011 0000 0001 0110 ; start of file memory address - x3016 
+0000 0000 0011 0000 ; ASCII offset value - x30 
+
