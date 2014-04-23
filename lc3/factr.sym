@@ -1,0 +1,20 @@
+// Symbol table
+// Scope level 0:
+//	Symbol Name       Page Address
+//	----------------  ------------
+//	FACTR             3007
+//	Cleanup           301E
+//	Done              301F
+//	SaveLink          3020
+//	SaveFact          3021
+//	SaveR1            3022
+//	MUL               3023
+//	POP               3025
+//	PUSH              302E
+//	Success           3035
+//	Failure           3039
+//	Base              303E
+//	Max               303F
+//	Save1             3040
+//	Save2             3041
+
