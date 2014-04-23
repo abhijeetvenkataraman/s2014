@@ -1,0 +1,83 @@
+PUSH        ADD     R6, R6, #-1
+            STR     R0, R6, #0
+
+POP         LDR     R0, R6, #0
+            ADD     R6, R6, #1
+
+; Assuming top of stack is x4000
+;
+POP         LD      R1, EMPTY
+            ADD     R2, R6, R1
+            BRz     UNDERFLOW
+            LDR     R0, R6, #0
+            ADD     R6, R6, #1
+            RET
+EMPTY       .FILL   xC000
+
+; Assuming top of stack is x4000
+;
+POP         LD      R1, EMPTY
+            ADD     R2, R6, R1
+            BRz     FAILURE
+            LDR     R0, R6, #0
+            ADD     R6, R6, #1
+            AND     R5, R5, #0
+            RET
+FAILURE     AND     R5, R5, #0
+            ADD     R5, R5, #1
+            RET
+EMPTY       .FILL   xC000
+
+; Assuming top of stack is x4000
+;
+POP         AND     R5, R5, #0  ; Set return success
+            LD      R1, EMPTY
+            ADD     R2, R6, R1
+            BRz     FAILURE
+            LDR     R0, R6, #0
+            ADD     R6, R6, #1
+            RET
+FAILURE     ADD     R5, R5, #1  ; Set return failure
+            RET
+EMPTY       .FILL   xC000
+
+
+; Assuming max stack is x3FFB
+;
+PUSH        LD      R1, MAX
+            ADD     R2, R6, R1
+            BRz     OVERFLOW
+            ADD     R6, R6, #-1
+            STR     R0, R6, #0
+            RET
+MAX         .FILL   xC005
+
+
+; Assuming max stack is x3FFB
+;
+PUSH        LD      R1, MAX
+            ADD     R2, R6, R1
+            BRz     FAILURE
+            ADD     R6, R6, #-1
+            STR     R0, R6, #0
+            AND     R5, R5, #0
+            RET
+FAILURE     AND     R5, R5, #0
+            ADD     R5, R5, #1
+            RET
+MAX         .FILL   xC005
+
+
+; Assuming max stack is x3FFB
+;
+PUSH        AND     R5, R5, #0
+            LD      R1, MAX
+            ADD     R2, R6, R1
+            BRz     FAILURE
+            ADD     R6, R6, #-1
+            STR     R0, R6, #0
+            RET
+FAILURE     ADD     R5, R5, #1
+            RET
+MAX         .FILL   xC005
+
